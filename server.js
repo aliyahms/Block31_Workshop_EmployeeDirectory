@@ -25,14 +25,22 @@ app.get("/employees", (req, res) => {
 // This is the middleware to handle the GET /employees:id endpoint. It will return an "error" message with status code 404
 
 app.get("/employees/:id", (req, res) => {
-  const { id } = req.params;
-  const names = employees.map((employee) => employee.name);
-  if (employees.includes(+id)) {
-    res.json(employees[id + names]);
+  const employeeId = parseInt(req.params.id, 10); // Convert id to an integer
+  const employee = employees.find((emp) => emp.id === employeeId);
+
+  if (employee) {
+    res.json(employee); // Send the employee details as JSON
   } else {
     // Because we want to indicate an "error", we set the status code
     res.status(404).send("There is no employee with that id.");
   }
+});
+
+// Route to get a random employee
+app.get("/employees/random", (req, res) => {
+  const randomIndex = Math.floor(Math.random() * employees.length);
+  const randomEmployee = employees[randomIndex];
+  res.json(randomEmployee);
 });
 
 // This is always at the end of the script! App starts to listen here.
