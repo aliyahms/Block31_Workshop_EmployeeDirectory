@@ -9,13 +9,13 @@ const app = express();
 // We initialize the PORT variable. Common port number is 3000
 const PORT = 3000;
 
+// We import the employees array of objects to access it's data
+const employees = require("./employees");
+
 // This is the 'home'/initial screen message. This middleware to handle the GET /
 app.get("/", (req, res) => {
   res.send("Hello employees!");
 });
-
-// We import the employees array of objects to access it's data
-const employees = require("./employees");
 
 // This is the middleware to hadle the GET  /employees endpoint to access list of all employees in the database
 app.get("/employees", (req, res) => {
